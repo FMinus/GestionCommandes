@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+
+</head>
+<body>
+    <div th:fragment="recherche">
+        <div class="center-me">
+            <form th:action="@{page}" method="get" class="form-inline">
+                <div class="form-group">
+                    <label for="motCle">Mot Clé : </label>
+                    <input type="text" id="motCle" name="motCle" class="form-control" th:value="${motCle}"/>
+                </div>
+                <button type="submit" class="btn btn-primary">Recherche</button>
+                <a th:href="@{page(page=0,motCle='')}" class="btn btn-danger">Reset</a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

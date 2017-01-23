@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Details Commande</title>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+
+    <script src="/static/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script src="/static/js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+    <script src="/static/css/bootstrap-3.3.6-dist/js/bootstrap.min.js"
+            th:src="@{/css/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div th:include="/includes/header :: header"></div>
+
+
+    <div class="col-md-8 col-md-offset-2 spacer">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Detail Commande <a th:href="@{/commande/page}" class="send-right">List Des Commande</a>
+            </div>
+            <div class="panel panel-body">
+                <main id="commande">
+                    <article>
+                        <div class="date send-right">
+                            <label for="madeOn">Commande Crée Le : </label>
+                            <span th:text="${#dates.format(commande.dateCommande, 'dd-MMM-yyyy')}" id="madeOn"></span>
+                        </div>
+                        <div class="">
+                            <label for="madeBy">Commande Crée Par : </label>
+                            <span  th:text="${commande.client.nom + ' ' +commande.client.prenom}" id="madeBy"></span>
+                        </div>
+
+                        <div class="produitsList">
+                            <label for="produits">Produits Commandés : </label>
+                            <div id="produits">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Prix</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="produit : ${commande.produits}">
+                                        <td th:text="${produit.nomProduit}"></td>
+                                        <td th:text="${produit.prix}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </article>
+                </main>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

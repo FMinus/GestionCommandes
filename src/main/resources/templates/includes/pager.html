@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+
+</head>
+<body>
+    <div th:fragment="pager">
+        <div class="container spacer nav-pills">
+            <ul class="nav nav-pills" th:if="${pages.length > 1}">
+                <li th:if="${pageCourante != 0}" class="send-left">
+                    <a th:text=" First" th:href="@{page(page=0,motCle=${motCle})}"></a>
+                </li>
+
+                <li th:each="p,iterStat:${pages}" th:if="${pageCourante - iterStat.index &gt; 0 and pageCourante - 7 &lt; iterStat.index}">
+                    <a th:text="${p}" th:href="@{page(page=${p},motCle=${motCle})}"></a>
+                </li>
+                <li class="active">
+                    <a th:text="${pageCourante}" th:href="@{page(page=${pageCourante},motCle=${motCle})}"></a>
+                </li>
+                <li th:each="p,iterStat:${pages}" th:if="${iterStat.index &lt; pageCourante + 7 and iterStat.index &gt; pageCourante}">
+                    <a th:text="${p}" th:href="@{page(page=${p},motCle=${motCle})}"></a>
+                </li>
+
+                <li th:if="${pageCourante != pages.length - 1}" class="send-left">
+                    <a th:href="@{page(page=${pages.length - 1},motCle=${motCle})}" th:text="Last">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

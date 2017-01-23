@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <title>Ajout Produit</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css" th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css}" />
+</head>
+<body>
+
+    <div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
+        <form th:action="@{/produit/add}" method="post" th:object="${produit}">
+            <div>
+                <label for="nomProduit">Nom Produit: </label>
+                <input type="nomProduit" th:field="*{nomProduit}" id="nomProduit"/>
+                <span th:errors="*{nomProduit}" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="quantite">Quantité : </label>
+                <input type="text" th:field="*{quantite}" id="quantite"/>
+                <span th:errors="*{quantite}" class="text-danger"></span>
+            </div>
+            <div>
+                <label for="prix">Prix : </label>
+                <input type="text" th:field="*{prix}" id="prix"/>
+                <span th:errors="*{prix}" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary center-block">Ajouter</button>
+        </form>
+    </div>
+    
+</body>
+</html>
