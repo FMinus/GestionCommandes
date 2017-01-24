@@ -10,10 +10,14 @@
             <form th:action="@{page}" method="get" class="form-inline">
                 <div class="form-group">
                     <label for="motCle">Mot Clé : </label>
-                    <input type="text" id="motCle" name="motCle" class="form-control" th:value="${motCle}"/>
+                    <input type="text" id="motCle" name="motCle" class="form-control" th:value="${motCle}" style="margin-right: 10px;"/>
                 </div>
-                <button type="submit" class="btn btn-primary">Recherche</button>
-                <a th:href="@{page(page=0,motCle='')}" class="btn btn-danger">Reset</a>
+                <button type="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+                <a th:href="@{page(page=0,motCle='')}" class="btn btn-danger">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
             </form>
         </div>
     </div>

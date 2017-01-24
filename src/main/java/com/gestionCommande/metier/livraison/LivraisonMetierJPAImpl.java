@@ -61,6 +61,12 @@ public class LivraisonMetierJPAImpl implements LivraisonMetier
     @Override
     public Optional<Livraison> findById(Long id)
     {
-        return Optional.of(livraisonRepository.findOne(id));
+        return Optional.ofNullable(livraisonRepository.findOne(id));
+    }
+
+    @Override
+    public Page<Livraison> findLivraisonByClientNameOrClientPrenom(String clientMotCle, Pageable pageable)
+    {
+        return livraisonRepository.findLivraisonByNomClientLikeOrPrenomClientLike(clientMotCle,pageable);
     }
 }

@@ -43,6 +43,7 @@ public class ProduitController
     @RequestMapping(value = "/add" , method = RequestMethod.POST)
     public String ajoutProduit(@Valid Produit produit, BindingResult bindingResult)
     {
+        System.out.println(produit);
         if(bindingResult.hasErrors())
             return "produit/add";
 
@@ -69,6 +70,7 @@ public class ProduitController
     @RequestMapping(value = "/edit",method = RequestMethod.POST)
     public String editProduit(@Valid Produit produit, BindingResult bindingResult)
     {
+
         if(bindingResult.hasErrors())
             return "produit/page";
 

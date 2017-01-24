@@ -7,25 +7,41 @@
 </head>
 <body>
 
-    <div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
-        <form th:action="@{/produit/add}" method="post" th:object="${produit}">
-            <div>
-                <label for="nomProduit">Nom Produit: </label>
-                <input type="nomProduit" th:field="*{nomProduit}" id="nomProduit"/>
-                <span th:errors="*{nomProduit}" class="text-danger"></span>
+
+    <div th:include="/includes/header :: header"></div>
+
+    <div class="col-md-8 col-md-offset-2 spacer">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Ajout Nouvel Produit <a th:href="@{/produit/page}" class="send-right">List Des Produits</a>
             </div>
-            <div>
-                <label for="quantite">Quantité : </label>
-                <input type="text" th:field="*{quantite}" id="quantite"/>
-                <span th:errors="*{quantite}" class="text-danger"></span>
+            <div class="panel panel-body">
+                <form th:action="@{/produit/add}" method="post" th:object="${produit}" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="nomProduit" class="control-label col-sm-2">Nom Produit: </label>
+                        <div class="col-sm-10">
+                            <input type="nomProduit" th:field="*{nomProduit}" id="nomProduit" class="form-control" required="required"/>
+                        </div>
+                        <span th:errors="*{nomProduit}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantite" class="control-label col-sm-2">Quantité : </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{quantite}" id="quantite" class="form-control" required="required"/>
+                        </div>
+                        <span th:errors="*{quantite}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="prix" class="control-label col-sm-2">Prix : </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{prix}" id="prix" class="form-control" required="required"/>
+                        </div>
+                        <span th:errors="*{prix}" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary center-block">Ajouter</button>
+                </form>
             </div>
-            <div>
-                <label for="prix">Prix : </label>
-                <input type="text" th:field="*{prix}" id="prix"/>
-                <span th:errors="*{prix}" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn btn-primary center-block">Ajouter</button>
-        </form>
+        </div>
     </div>
     
 </body>

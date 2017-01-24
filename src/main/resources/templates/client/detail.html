@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Details Client</title>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+
+    <script src="/static/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script src="/static/js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+    <script src="/static/css/bootstrap-3.3.6-dist/js/bootstrap.min.js"
+            th:src="@{/css/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div th:include="/includes/header :: header"></div>
+
+
+    <div class="col-md-8 col-md-offset-2 spacer">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Detail Client <a th:href="@{/client/page}" class="send-right">List Des Clients</a>
+            </div>
+            <div class="panel panel-body">
+                <main id="client">
+                    <article>
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Nom</th>
+                                <td th:text="${client.nom}"></td>
+                            </tr>
+                            <tr>
+                                <th>Prenom</th>
+                                <td th:text="${client.prenom}"></td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td th:text="${client.adresse}"></td>
+                            </tr>
+                            <tr>
+                                <th>Telephone</th>
+                                <td th:text="${client.telephone}"></td>
+                            </tr>
+                            <tr>
+                                <th>Commandes</th>
+                                <td>
+                                    <table class="table table-bordered">
+                                        <tr th:each="commande : ${client.commandes}" th:if="${not #lists.isEmpty(client.commandes)}">
+                                            <a th:href="@{'/commande/detail/'+${commande.numeroCommande}}"
+                                               th:text="${'N° : '+commande.numeroCommande +' Le :'+#dates.format(commande.dateCommande,'dd/MM/yyyy')+' - Nombre Produit = ' + #lists.size(commande.produits)}">
+                                            </a>
+                                            <br/>
+                                        </tr>
+                                        <tr th:if="${#lists.isEmpty(client.commandes)}">
+                                            <span class="alert-info">Pas De Commandes:</span>
+                                        </tr>
+                                    </table>
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+
+                    </article>
+                </main>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

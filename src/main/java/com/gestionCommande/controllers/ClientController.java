@@ -1,6 +1,7 @@
 package com.gestionCommande.controllers;
 
 import com.gestionCommande.entities.Client;
+import com.gestionCommande.entities.Commande;
 import com.gestionCommande.metier.client.ClientMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,11 +9,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("client")
@@ -79,5 +82,17 @@ public class ClientController
        clientMetier.save(client);
 
         return "redirect:/client/page";
+    }
+
+    @RequestMapping("/detail/{id}")
+    public String commandeDetails(@PathVariable("id") Long id, Model model)
+    {
+        Optional<Client> clientOptional = clientMetier.findById(id);
+
+        if (!clientOptional.isPresent()) {
+            return "redirect:/client/page";
+        }
+        model.addAttribute("client",clientOptional.get());
+        return "client/detail";
     }
 }

@@ -16,5 +16,7 @@ public interface FactureMetier
     Facture update(Facture facture);
     List<Facture> findFactureByClientNameAndClientPrenom(String clientNom,String clientPrenom);
     Page<Facture> findFactureByClientNameAndClientPrenom(String clientNom,String clientPrenom, Pageable pageable);
+    Page<Facture> findFactureByClientNameOrClientPrenom(String clientMotCle,Pageable pageable);
     Optional<Facture> findById(Long id);
+    double calculeTotal(Facture facture);
 }

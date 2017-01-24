@@ -79,6 +79,6 @@ public class CommandeMetierJPAImpl implements CommandeMetier
     @Override
     public Optional<Commande> findById(Long id)
     {
-        return Optional.of(commandeRepository.findOne(id));
+        return Optional.ofNullable(commandeRepository.findOne(id));
     }
 }

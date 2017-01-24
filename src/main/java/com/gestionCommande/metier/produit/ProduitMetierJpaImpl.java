@@ -67,6 +67,6 @@ public class ProduitMetierJpaImpl implements ProduitMetier
     @Override
     public Optional<Produit> findById(Long id)
     {
-        return Optional.of(produitRepository.findOne(id));
+        return Optional.ofNullable(produitRepository.findOne(id));
     }
 }

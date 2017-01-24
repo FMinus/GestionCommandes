@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <title>List des Factures</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+
+    <script src="/static/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script src="/static/js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+    <script src="/static/css/bootstrap-3.3.6-dist/js/bootstrap.min.js"
+            th:src="@{/css/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css}"/>
+
+</head>
+
+<body class="spacer">
+
+    <div th:include="/includes/header :: header"></div>
+
+    <div class="container">
+        <div th:include="/includes/recherche :: recherche"></div>
+
+        <div class="container spacer-top">
+            <div class="send-right">
+                <a th:href="@{add}" class="btn btn-success">Ajouter une Livraison</a>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Num</th>
+                    <th>Date</th>
+                    <th>Client</th>
+                    <th>Facture</th>
+                    <th>Supprimer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="e:${livraisons.content}">
+                    TODO
+                    <!--<td th:text="${e.numeroLivraison}"></td>-->
+                    <!--<td th:text="${#dates.format(e.dateLivraison,'dd/MM/yyyy')}"></td>-->
+                    <!--<td th:text="${e.commande.client.nom+' '+e.commande.client.prenom}"></td>-->
+                    <!--<td>-->
+                        <!--<a th:href="@{'/livraison/detail/'+${e.numeroLivraison}}" th:text="details"></a>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                        <!--<a th:href="@{/livraison/delete(id=${e.numeroLivraison})}">Supprimer</a>-->
+                    <!--</td>-->
+
+                    <!--<td>-->
+                        <!--<a th:href="'#'+${e.numeroLivraison}" data-toggle="modal"> Modifier</a>-->
+                        <!--<div class="modal fade" th:id="${e.numeroLivraison}" aria-labelledby="tiketLabel" tabindex="-1"-->
+                             <!--role="dialog" aria-hidden="true">-->
+                            <!--<div class="modal-dialog">-->
+                                <!--<div class="modal-content">-->
+                                    <!--<div class="modal-header">-->
+                                        <!--<button type="button" class="close" data-dismiss="modal">-->
+                                            <!--<span aria-hidden="true">&times;</span>-->
+                                            <!--<span class="sr-only">Close</span>-->
+                                        <!--</button>-->
+
+                                        <!--<h4 class="modal-title" id="tiketLabel">-->
+                                            <!--Modifier Livraison:-->
+                                        <!--</h4>-->
+                                    <!--</div>-->
+
+                                    <!--<div class="modal-body">-->
+                                        <!--<form th:action="@{/livraison/edit}" class="form-horizontal" th:object="${livraison}" method="post">-->
+                                            <!--<input type="hidden" name="numeroLivraison" th:value="${e.numeroLivraison}" id="numeroEdit"/>-->
+                                            <!--<div class="form-group">-->
+                                                <!--<label for="dateEditLivraison" class="control-label col-sm-2">Date </label>-->
+                                                <!--<div class="col-sm-10">-->
+                                                    <!--<input type="date" name="dateLivraison" th:value="${e.dateLivraison}" class="form-control" id="dateEditLivraison"/>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--<div class="form-group">-->
+                                                <!--<label for="clientID" class="control-label col-sm-2">Commande : </label>-->
+                                                <!--<div class="col-sm-10">-->
+                                                    <!--<select th:field="*{commande}" id="clientID" class="form-control">-->
+                                                        <!--<option th:each="commande : ${commandes}" th:value="${commande.numeroCommande}" th:text="${commande.numeroCommande + ' - ' + #dates.format(commande.dateCommande, 'dd-MMM-yyyy')}">-->
+
+                                                        <!--</option>-->
+                                                    <!--</select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+
+                                            <!--<div class="form-group">-->
+                                                <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                                    <!--<input type="submit" value="Modifier" class="btn btn-success"/>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</form>-->
+
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:include="/includes/pager :: pager"></div>
+    </div>
+
+
+</body>
+</html>

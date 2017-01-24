@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeLeaf.org">
 <head>
-    <title>List des Commandes</title>
+    <title>List des Factures</title>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
 
@@ -24,7 +24,7 @@
 
         <div class="container spacer-top">
             <div class="send-right">
-                <a th:href="@{add}" class="btn btn-success">Ajouter une Commande</a>
+                <a th:href="@{add}" class="btn btn-success">Ajouter une Facture</a>
             </div>
             <table class="table table-striped">
                 <thead>
@@ -32,27 +32,25 @@
                     <th>Num</th>
                     <th>Date</th>
                     <th>Client</th>
+                    <th>Commande</th>
                     <th>Supprimer</th>
-                    <th>Consulter</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="e:${commandes.content}">
-                    <td th:text="${e.numeroCommande}"></td>
-                    <td th:text="${#dates.format(e.dateCommande,'dd/MM/yyyy')}"></td>
+                <tr th:each="e:${factures.content}">
+                    <td th:text="${e.numeroFacture}"></td>
+                    <td th:text="${#dates.format(e.numeroFacture,'dd/MM/yyyy')}"></td>
+                    <td th:text="${e.commande.client.nom +' '+ e.commande.client.prenom}"></td>
                     <td>
-                        <a th:href="@{'/client/detail/'+${e.client.numeroClient}}" th:text="${e.client.nom +' '+ e.client.prenom}"></a>
+                        <a th:href="@{'/facture/detail/'+${e.numeroFacture}}" th:text="details"></a>
                     </td>
                     <td>
-                        <a th:href="@{/commande/delete(id=${e.numeroCommande})}">Delete</a>
+                        <a th:href="@{/facture/delete(id=${e.numeroFacture})}">Supprimer</a>
                     </td>
+
                     <td>
-                        <a th:href="@{'/commande/detail/'+${e.numeroCommande}}">Consulter</a>
-                    </td>
-                    
-                    <td>
-                        <a th:href="'#'+${e.numeroCommande}" data-toggle="modal"> Modifier</a>
-                        <div class="modal fade" th:id="${e.numeroCommande}" aria-labelledby="tiketLabel" tabindex="-1"
+                        <a th:href="'#'+${e.numeroFacture}" data-toggle="modal"> Modifier</a>
+                        <div class="modal fade" th:id="${e.numeroFacture}" aria-labelledby="tiketLabel" tabindex="-1"
                              role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -63,27 +61,25 @@
                                         </button>
 
                                         <h4 class="modal-title" id="tiketLabel">
-                                            Modifier Commande:
+                                            Modifier Facture:
                                         </h4>
                                     </div>
 
                                     <div class="modal-body">
-                                        <form th:action="@{/commande/edit}" class="form-horizontal" th:object="${commande}" method="post">
-                                            <input type="hidden" name="numeroCommande" th:value="${e.numeroCommande}" id="numeroEdit"/>
+                                        <form th:action="@{/facture/edit}" class="form-horizontal" th:object="${facture}" method="post">
+                                            <input type="hidden" name="numeroFacture" th:value="${e.numeroFacture}" id="numeroEdit"/>
                                             <div class="form-group">
-                                                <label for="dateCommande" class="control-label col-sm-2">Nom </label>
+                                                <label for="dateEditFacture" class="control-label col-sm-2">Date </label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" name="dateCommande" th:value="${e.dateCommande}" class="form-control" id="dateCommande"/>
+                                                    <input type="date" name="dateFacture" th:value="${e.dateFacture}" class="form-control" id="dateEditFacture"/>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="clientID" class="control-label col-sm-2">Client : </label>
+                                                <label for="clientID" class="control-label col-sm-2">Commande : </label>
                                                 <div class="col-sm-10">
-                                                    <select name="client" id="clientID" class="form-control" >
-                                                        <option
-                                                                th:each="client : ${clients}"
-                                                                th:text="${client.numeroClient +' : '+client.nom+' '+client.prenom}"
-                                                                th:value="${e.client.numeroClient}">
+                                                    <select th:field="*{commande}" id="clientID" class="form-control">
+                                                        <option th:each="commande : ${commandes}" th:value="${commande.numeroCommande}" th:text="${commande.numeroCommande + ' - ' + #dates.format(commande.dateCommande, 'dd-MMM-yyyy')}">
+
                                                         </option>
                                                     </select>
                                                 </div>

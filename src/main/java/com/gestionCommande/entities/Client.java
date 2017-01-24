@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -34,6 +33,6 @@ public class Client implements Serializable
     //TODO validate phone
     private String telephone;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "client")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "client",fetch = FetchType.LAZY)
     private List<Commande> commandes;
 }

@@ -21,42 +21,37 @@
     <div class="col-md-8 col-md-offset-2 spacer">
         <div class="panel panel-info">
             <div class="panel panel-heading">
-                Ajout Nouvelle Commande <a th:href="@{/commande/page}" class="send-right">List Des Commande</a>
+                Ajout Nouvelle Facture <a th:href="@{/commande/page}" class="send-right">List Des Commande</a>
             </div>
             <div class="panel panel-body">
 
-                <form th:action="@{/commande/add}" method="post" th:object="${commande}" class="form-horizontal">
+                <form th:action="@{/facture/add}" method="post" th:object="${facture}" class="form-horizontal">
                     <div class="form-group">
-                        <label for="dateCommande" class="control-label col-sm-2">Date Commande : </label>
+                        <label for="dateFacture" class="control-label col-sm-2">Date Facture : </label>
                         <div class="col-sm-10">
-                            <input type="date" th:field="*{dateCommande}" id="dateCommande" class="form-control" required="required"/>
+                            <input type="date" th:field="*{dateFacture}" id="dateFacture" class="form-control" required="required"/>
                         </div>
-                        <span th:errors="*{dateCommande}" class="text-danger"></span>
+                        <span th:errors="*{dateFacture}" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="clientID" class="control-label col-sm-2">Client : </label>
+                        <label for="clientID" class="control-label col-sm-2">Commande : </label>
                         <div class="col-sm-10">
-                            <select th:field="*{client}" id="clientID" class="form-control">
-                                <option th:each="client : ${clients}" th:value="${client.numeroClient}" th:text="${client.numeroClient +' : '+client.nom+' '+client.prenom}">
+                            <select th:field="*{commande}" id="clientID" class="form-control">
+                                <option th:each="commande : ${commandes}" th:value="${commande.numeroCommande}" th:text="${commande.numeroCommande + ' - ' + #dates.format(commande.dateCommande, 'dd-MMM-yyyy')}">
 
                                 </option>
                             </select>
                         </div>
-                        <span th:errors="*{dateCommande}" class="text-danger"></span>
+                        <!--<span th:errors="*{dateCommande}" class="text-danger"></span>-->
                     </div>
 
                     <div class="form-group">
-                        <label for="produitsIds" class="control-label col-sm-2">Produits : </label>
+                        <label for="additionalCosts" class="control-label col-sm-2">Additional Costs : </label>
                         <div class="col-sm-10">
-                            <select th:field="*{produits}" id="produitsIds" class="form-control" multiple="multiple">
-                                <option th:each="produit : ${produits}" th:value="${produit.numeroProduit}"
-                                        th:text="${produit.numeroProduit +' : '+produit.nomProduit}">
-
-                                </option>
-                            </select>
+                            <input type="text" th:field="*{additionalCosts}" id="additionalCosts" class="form-control" required="required"/>
                         </div>
-                        <span th:errors="*{dateCommande}" class="text-danger"></span>
+                        <span th:errors="*{additionalCosts}" class="text-danger"></span>
                     </div>
 
                     <button type="submit" class="btn btn-primary center-block">Ajouter</button>

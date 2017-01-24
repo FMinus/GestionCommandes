@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +20,7 @@ public class Commande implements Serializable
     @GeneratedValue
     private Long numeroCommande;
 
-    //    @Temporal(TemporalType.DATE)
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateCommande;
 
@@ -29,9 +30,9 @@ public class Commande implements Serializable
     @ManyToMany
     private List<Produit> produits;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "commande")
     private Collection<Facture> factures;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "commande")
     private Collection<Livraison> livraisons;
 }

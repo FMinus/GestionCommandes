@@ -1,12 +1,14 @@
 package com.gestionCommande.metier.facture;
 
 import com.gestionCommande.entities.Facture;
+import com.gestionCommande.entities.Produit;
 import com.gestionCommande.repository.FactureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +63,26 @@ public class FactureMetierJPAImpl implements FactureMetier
     @Override
     public Optional<Facture> findById(Long id)
     {
-        return Optional.of(factureRepository.findOne(id));
+        return Optional.ofNullable(factureRepository.findOne(id));
+    }
+
+    @Override
+    public double calculeTotal(@NotNull Facture facture)
+    {
+        if(facture.getCommande() == null)
+            throw new RuntimeException("Pas de Commande");
+
+        if(facture.getCommande().getProduits() == null)
+            throw new RuntimeException("Pas de Produits");
+
+        return facture.getCommande().getProduits().stream()
+                .mapToDouble(Produit::getPrix)
+                .sum() + facture.getAdditionalCosts();
+    }
+
+    @Override
+    public Page<Facture> findFactureByClientNameOrClientPrenom(String clientMotCle, Pageable pageable)
+    {
+        return factureRepository.findFactureByNomClientLikeOrPrenomClientLike(clientMotCle,pageable);
     }
 }

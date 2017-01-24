@@ -31,3 +31,10 @@ body { padding-top: 50px; }
     font-size: large;
     font-weight: 100;
 }
+
+.search-box{
+border: 1px dotted midnightblue;
+padding: 5px;
+/*background: maroon;*/
+/*color: white;*/
+}

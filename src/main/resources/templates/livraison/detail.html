@@ -19,18 +19,18 @@
     <div class="col-md-8 col-md-offset-2 spacer">
         <div class="panel panel-info">
             <div class="panel panel-heading">
-                Detail Commande <a th:href="@{/commande/page}" class="send-right">List Des Commande</a>
+                Detail Facture <a th:href="@{/facture/page}" class="send-right">List Des Facture</a>
             </div>
             <div class="panel panel-body">
                 <main id="commande">
                     <article>
-                        <div class="date send-right">
-                            <label for="madeOn">Commande Crée Le : </label>
-                            <span th:text="${#dates.format(commande.dateCommande, 'dd-MMM-yyyy')}" id="madeOn"></span>
+                        <div class="date">
+                            <label for="madeOn">Facture Crée Le : </label>
+                            <span th:text="${#dates.format(facture.dateFacture, 'dd-MMM-yyyy')}" id="madeOn" class="send-right"></span>
                         </div>
                         <div class="">
-                            <label for="madeBy">Commande Crée Par : </label>
-                            <span  th:text="${commande.client.nom + ' ' +commande.client.prenom}" id="madeBy"></span>
+                            <label for="madeBy">Facture pour : </label>
+                            <span  th:text="${facture.commande.client.nom + ' ' +facture.commande.client.prenom}" id="madeBy" class="send-right"></span>
                         </div>
 
                         <div class="produitsList">
@@ -39,14 +39,12 @@
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Nom</th>
                                         <th>Prix</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="produit : ${commande.produits}">
-                                        <td th:text="${produit.numeroProduit}"></td>
+                                    <tr th:each="produit : ${facture.commande.produits}">
                                         <td th:text="${produit.nomProduit}"></td>
                                         <td th:text="${produit.prix}"></td>
                                     </tr>
@@ -54,8 +52,10 @@
                                 </table>
                             </div>
                         </div>
-
-
+                        <div class="totalFacture">
+                            <label for="total">Total : </label>
+                            <span id="total" th:text="${totalFacture +' DH'}" class="send-right"></span>
+                        </div>
                     </article>
                 </main>
 

@@ -55,13 +55,13 @@ public class UtilisateurMetierJPAImpl implements UtilisateurMetier
     @Override
     public Optional<Utilisateur> findById(Long id)
     {
-        return Optional.of(utilisateurRepository.findOne(id));
+        return Optional.ofNullable(utilisateurRepository.findOne(id));
     }
 
     @Override
     public Optional<Utilisateur> findByUsername(String username)
     {
-        return Optional.of(utilisateurRepository.findByUsername(username));
+        return Optional.ofNullable(utilisateurRepository.findByUsername(username));
     }
 
     @Override

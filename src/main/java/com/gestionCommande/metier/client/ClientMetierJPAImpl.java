@@ -67,6 +67,6 @@ public class ClientMetierJPAImpl implements ClientMetier
     @Override
     public Optional<Client> findById(Long id)
     {
-        return Optional.of(clientRepository.findOne(id));
+        return Optional.ofNullable(clientRepository.findOne(id));
     }
 }

@@ -16,5 +16,6 @@ public interface LivraisonMetier
     Livraison update(Livraison livraison);
     List<Livraison> findLivraisonByClientNameAndClientPrenom(String clientNom,String clientPrenom);
     Page<Livraison> findLivraisonByClientNameAndClientPrenom(String clientNom,String clientPrenom, Pageable pageable);
+    Page<Livraison> findLivraisonByClientNameOrClientPrenom(String clientMotCle, Pageable pageable);
     Optional<Livraison> findById(Long id);
 }
