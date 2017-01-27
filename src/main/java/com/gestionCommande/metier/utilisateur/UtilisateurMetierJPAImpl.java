@@ -2,6 +2,7 @@ package com.gestionCommande.metier.utilisateur;
 
 import com.gestionCommande.entities.Utilisateur;
 import com.gestionCommande.repository.UtilisateurRepository;
+import com.gestionCommande.utils.Passwords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -68,5 +69,12 @@ public class UtilisateurMetierJPAImpl implements UtilisateurMetier
     public Optional<Utilisateur> login(String username, String password)
     {
         return utilisateurRepository.findFirstByUsernameAndPassword(username,password);
+    }
+
+    @Override
+    public Utilisateur hashPassword(Utilisateur utilisateur)
+    {
+        utilisateur.setPassword(Passwords.hashPassword(utilisateur.getPassword()));
+        return utilisateur;
     }
 }

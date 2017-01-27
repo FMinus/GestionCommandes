@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <title>Ajout Client</title>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
+    <script src="/static/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script src="/static/js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
+    <script src="/static/css/bootstrap-3.3.6-dist/js/bootstrap.min.js"
+            th:src="@{/css/bootstrap-3.3.6-dist/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" href="/static/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
+          th:href="@{/css/bootstrap-3.3.6-dist/css/bootstrap.min.css}"/>
+</head>
+<body>
+
+    <div th:include="/includes/header :: header"></div>
+
+    <div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3 col-sm-offset-3">
+
+    </div>
+
+    <div class="col-md-8 col-md-offset-2 spacer">
+        <div class="panel panel-info">
+            <div class="panel panel-heading">
+                Ajout Nouveau Utilisateur <a th:href="@{/}" class="send-right">Back</a>
+            </div>
+            <div class="panel panel-body">
+
+                <form th:action="@{/utilisateur/register}" method="post" th:object="${utilisateur}" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="username" class="control-label col-sm-2">Username : </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{username}" id="username" class="form-control"/>
+                        </div>
+                        <span th:errors="*{username}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label col-sm-2">Password : </label>
+                        <div class="col-sm-10">
+                            <input type="text" th:field="*{password}" id="password" class="form-control"/>
+                        </div>
+                        <span th:errors="*{password}" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="authoritiesIds" class="control-label col-sm-2">Authorités : </label>
+                        <div class="col-sm-10">
+                            <select th:field="*{authorities}" id="authoritiesIds" class="form-control" multiple="multiple">
+                                <option th:each="authority : ${authorities}" th:value="${authority.id}"
+                                        th:text="${authority.id +' : '+authority.name}">
+
+                                </option>
+                            </select>
+                        </div>
+                        <span th:errors="*{authorities}" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary center-block">Ajouter</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

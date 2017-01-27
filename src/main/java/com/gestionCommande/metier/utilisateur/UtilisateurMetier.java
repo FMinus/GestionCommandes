@@ -14,6 +14,7 @@ public interface UtilisateurMetier
     Utilisateur save(Utilisateur utilisateur);
     void delete(Long idUtilisateur);
     Utilisateur update(Utilisateur utilisateur);
+    Utilisateur hashPassword(Utilisateur utilisateur);
     Page<Utilisateur> findUtilisateurByUsernameLike(String username, Pageable pageable);
     Optional<Utilisateur> findById(Long id);
     Optional<Utilisateur> findByUsername(String username);

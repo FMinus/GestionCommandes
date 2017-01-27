@@ -1,7 +1,9 @@
 package com.gestionCommande.controllers;
 
 import com.gestionCommande.entities.Utilisateur;
+import com.gestionCommande.metier.authority.AuthorityMetier;
 import com.gestionCommande.metier.utilisateur.UtilisateurMetier;
+import com.gestionCommande.repository.AuthorityRepository;
 import com.gestionCommande.repository.UtilisateurRepository;
 import com.gestionCommande.utils.Passwords;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,14 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("utilisateur")
 public class UtilisateurController
 {
     @Autowired
     private UtilisateurMetier utilisateurMetier;
+
+    @Autowired
+    private AuthorityMetier authorityMetier;
 
     @RequestMapping("/current")
     public String getCurrentUser(Principal user,Model model)
@@ -58,22 +63,24 @@ public class UtilisateurController
         return "/utilisateur/page";
     }
     
-    @RequestMapping(value = "/add" , method = RequestMethod.POST)
+    @RequestMapping(value = "/register" , method = RequestMethod.POST)
     public String ajoutUtilisateur(@Valid Utilisateur utilisateur, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
-            return "utilisateur/add";
-        utilisateur.setPassword(BCrypt.hashpw(utilisateur.getPassword(),""));
+            return "utilisateur/register";
+
+        utilisateurMetier.hashPassword(utilisateur);
         utilisateurMetier.save(utilisateur);
         
-        return "redirect:/utilisateur/page";
+        return "redirect:/";
     }
     
-    @RequestMapping(value = "/add" , method = RequestMethod.GET)
+    @RequestMapping(value = "/register" , method = RequestMethod.GET)
     public String getAjoutUtilisateurPage(Model model)
     {
         model.addAttribute("utilisateur",new Utilisateur());
-        return "utilisateur/add";
+        model.addAttribute("authorities",authorityMetier.findAll());
+        return "utilisateur/register";
         
     }
     
