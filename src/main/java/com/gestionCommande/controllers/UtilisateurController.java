@@ -80,7 +80,7 @@ public class UtilisateurController
     public String ajoutUtilisateur(@Valid Utilisateur utilisateur, BindingResult bindingResult)
     {
         if(bindingResult.hasErrors())
-            return "utilisateur/register";
+            return "/utilisateur/register";
 
         utilisateurMetier.hashPassword(utilisateur);
         utilisateurMetier.save(utilisateur);

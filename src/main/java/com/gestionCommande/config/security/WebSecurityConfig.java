@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -36,6 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/utilisateur/register","/css/**","/js/**","/includes/**").permitAll()
+                .antMatchers("/client/delete","/client/edit","/client/add").hasAuthority("ADMIN")
+                .antMatchers("/produit/delete","/produit/edit","/produit/add").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
             .formLogin()
@@ -46,6 +49,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
 
         http.csrf().disable();
+//        http.csrf()
+//            .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
     }
 }
