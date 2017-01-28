@@ -36,74 +36,81 @@
                 </thead>
                 <tbody>
                 <tr th:each="e:${clients.content}">
-                    <td th:text="${e.numeroClient}" th:id="${'numero'+e.numeroClient}"></td>
+                    <td>
+                        <a th:href="@{'/client/detail/'+${e.numeroClient}}" th:text="${e.numeroClient}"></a>
+                    </td>
                     <td th:text="${e.nom}" th:id="${'nom'+e.numeroClient}"></td>
                     <td th:text="${e.prenom}" th:id="${'prenom'+e.numeroClient}"></td>
                     <td th:text="${e.adresse}" th:id="${'adresse'+e.numeroClient}"></td>
                     <td th:text="${e.telephone}" th:id="${'telephone'+e.numeroClient}"></td>
-                    <td>
-                        <a th:href="@{/client/delete(id=${e.numeroClient})}">Supprimer</a>
-                    </td>
-                    <td>
-                        <a th:href="'#'+${e.numeroClient}" data-toggle="modal"> Modifier</a>
-                        <div class="modal fade" th:id="${e.numeroClient}" aria-labelledby="tiketLabel" tabindex="-1"
-                             role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
 
-                                        <h4 class="modal-title" id="tiketLabel">
-                                            Modifier :
-                                            <span th:text="${e.nom + ' ' + e.prenom}"></span>
-                                        </h4>
-                                    </div>
+                    <div th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
 
-                                    <div class="modal-body">
-                                        <form th:action="@{/client/edit}" class="form-horizontal" th:object="${client}" method="post" id="editClient">
-                                            <input type="hidden" name="numeroClient" th:value="${e.numeroClient}" id="numeroEdit"/>
-                                            <div class="form-group">
-                                                <label for="nomEdit" class="control-label col-sm-2">Nom </label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="nom" th:value="${e.nom}" class="form-control" id="nomEdit"/>
-                                                </div>
+                        <td>
+                            <a th:href="@{/client/delete(id=${e.numeroClient})}">Supprimer</a>
+                        </td>
+                        <td>
+                            <a th:href="'#'+${e.numeroClient}" data-toggle="modal"> Modifier</a>
+                            <div class="modal fade" th:id="${e.numeroClient}" aria-labelledby="tiketLabel" tabindex="-1"
+                                 role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
 
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="prenomEdit" class="control-label col-sm-2">Prenom </label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="prenom" th:value="${e.prenom}" class="form-control" id="prenomEdit"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="adresseEdit" class="control-label col-sm-2">Adresse </label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="adresse" th:value="${e.adresse}" class="form-control" id="adresseEdit"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="telephoneEdit"
-                                                       class="control-label col-sm-2">Telephone </label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" name="telephone" th:value="${e.telephone}" class="form-control" id="telephoneEdit"/>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <input type="submit" value="Modifier" class="btn btn-success"/>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            <h4 class="modal-title" id="tiketLabel">
+                                                Modifier :
+                                                <span th:text="${e.nom + ' ' + e.prenom}"></span>
+                                            </h4>
+                                        </div>
 
+                                        <div class="modal-body">
+                                            <form th:action="@{/client/edit}" class="form-horizontal" th:object="${client}" method="post" id="editClient">
+                                                <input type="hidden" name="numeroClient" th:value="${e.numeroClient}" id="numeroEdit"/>
+                                                <div class="form-group">
+                                                    <label for="nomEdit" class="control-label col-sm-2">Nom </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="nom" th:value="${e.nom}" class="form-control" id="nomEdit"/>
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="prenomEdit" class="control-label col-sm-2">Prenom </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="prenom" th:value="${e.prenom}" class="form-control" id="prenomEdit"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="adresseEdit" class="control-label col-sm-2">Adresse </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="adresse" th:value="${e.adresse}" class="form-control" id="adresseEdit"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="telephoneEdit"
+                                                           class="control-label col-sm-2">Telephone </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="telephone" th:value="${e.telephone}" class="form-control" id="telephoneEdit"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <input type="submit" value="Modifier" class="btn btn-success"/>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </td>
+                        </td>
+                    </div>
+
                 </tr>
                 </tbody>
             </table>
@@ -112,5 +119,6 @@
 
         <div th:include="/includes/pager :: pager"></div>
     </div>
+    <div th:include="/includes/footer :: footer"></div>
 </body>
 </html>

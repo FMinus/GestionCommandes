@@ -20,13 +20,13 @@ public class Produit implements Serializable
     private Long numeroProduit;
 
     @NotNull
-    @Size(min = 3,max = 50)
+    @Size(min = 3,max = 50,message = "longeur doit etre entre 3 et 50")
     private String nomProduit;
 
-    @Min(0)
+    @Min(value =0,message = "valeur doit étre entier positif")
     private int quantite;
 
-    @Min(0)
+    @Min(value = 0,message = "valeur doit étre positif")
     private double prix;
 
     @ManyToMany

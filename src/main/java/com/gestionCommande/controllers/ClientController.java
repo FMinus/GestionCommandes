@@ -6,6 +6,7 @@ import com.gestionCommande.metier.client.ClientMetier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("client")
+@PreAuthorize("hasRole('ADMIN')")
 public class ClientController
 {
     private ClientMetier clientMetier;
@@ -64,6 +66,7 @@ public class ClientController
         return "client/add";
 
     }
+
 
     @RequestMapping(value = "/delete")
     public String deleteProduit(@RequestParam("id") Long id)

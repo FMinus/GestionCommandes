@@ -9,6 +9,8 @@ import com.gestionCommande.utils.Passwords;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Collection;
 
 @Controller
 @RequestMapping("utilisateur")
@@ -42,6 +45,16 @@ public class UtilisateurController
     {
         model.addAttribute("currentUser",user);
         return "home";
+    }
+
+    @RequestMapping("/profile")
+    public String profile(Principal user,Model model)
+    {
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        model.addAttribute("currentUser",user);
+        model.addAttribute("authorities",authorities);
+
+        return "utilisateur/profile";
     }
     
     @RequestMapping(value = "/page",method = RequestMethod.GET)

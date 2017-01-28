@@ -1,6 +1,5 @@
 package com.gestionCommande.repository;
 
-import com.gestionCommande.entities.Client;
 import com.gestionCommande.entities.Utilisateur;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

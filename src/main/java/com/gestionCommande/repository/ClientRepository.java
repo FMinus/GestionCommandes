@@ -17,7 +17,6 @@ public interface ClientRepository extends JpaRepository<Client,Long>
     List<Client> findClientByNom(String nomProduit);
     Page<Client> findClientByNom(String nomProduit, Pageable pageable);
 
-
     @Query("select c from Client c where c.nom like :motCle or c.prenom like :motCle ")
     Page<Client> findProduitByNomProduitLike(@Param("motCle") String motCleClient, Pageable pageable);
 }

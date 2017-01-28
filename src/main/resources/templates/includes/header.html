@@ -43,7 +43,7 @@
                     <!--Auth section-->
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           <a href="#" th:text="${#httpServletRequest.remoteUser}" class="logged-as"></a>
+                           <a th:href="@{/utilisateur/profile}" th:text="${#httpServletRequest.remoteUser}" class="logged-as"></a>
                         </li>
                         <li>
                             <a href="/logout" th:href="@{/logout}">Logout</a>

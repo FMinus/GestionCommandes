@@ -17,15 +17,15 @@
     <div class="col-md-6 col-md-offset-3 spacer ">
         <div class="panel panel-info">
             <div class="panel panel-heading ng-cloak">
-                Login :
+                Login : <a th:href="@{/utilisateur/register}" class="send-right">Nouvel Compte Utilisateur</a>
             </div>
             <div class="panel panel-body">
-
+                <p th:if="${loginError}" class="error">Wrong user or password</p>
                 <form th:action="@{/login}" method="post" class="form-horizontal">
                     <div class="form-group">
                         <label for="username" class="control-label col-sm-2">Username </label>
                         <div class="col-sm-10">
-                            <input type="text" name="username" value="admin" id="username" class="form-control"/>
+                            <input type="text" name="username" value="user" id="username" class="form-control"/>
                         </div>
                     </div>
 

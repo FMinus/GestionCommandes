@@ -5,7 +5,7 @@
       xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
-    <title>Home</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="/static/css/style.css" th:href="@{/css/style.css}"/>
     <script src="/static/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
     <script src="/static/js/jquery-migrate-1.2.1.min.js" th:src="@{/js/jquery-migrate-1.2.1.min.js}"></script>
@@ -16,22 +16,30 @@
 
     <div th:include="/includes/header :: header"></div>
 
-    <div>
-        <img th:src="@{/img/logo_ENSAK.jpg}" class="img-responsive center-block"/>
+    <h1>Profile</h1>
+
+
+    <div th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
+        Is An Admin
     </div>
 
-    <div class="container">
-        <div class="jumbotron">
-            <h1>Mini Projet JavaEE</h1>
-            <p>Sujet : Gestion de commandes</p>
-            <p>Realisé Avec : Spring (Data, Web, Security) , MySql et Thymeleaf</p>
-        </div>
-    </div>
+    <div class="panel panel-body">
+        <main id="commande">
+            <article>
+                <div class="date">
+                    <label for="username">Nom Utilisateur : </label>
+                    <span th:inline="text" id="username">[[${#httpServletRequest.remoteUser}]]</span>
+                </div>
 
+                <div class="produitsList">
+                    <label for="roles">Vos Roles :</label>
+                    <ul th:each="auth : ${authorities}" id="roles">
+                        <li th:text="${auth.getAuthority()}" class="label label-primary"></li>
+                    </ul>
+                </div>
+            </article>
+        </main>
 
-
-    <div sec:authorize="not isAuthenticated()">
-        test
     </div>
 
     <div th:include="/includes/footer :: footer"></div>

@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="nomProduit" class="control-label col-sm-2">Nom Produit: </label>
                         <div class="col-sm-10">
-                            <input type="nomProduit" th:field="*{nomProduit}" id="nomProduit" class="form-control" required="required"/>
+                            <input type="text" th:field="*{nomProduit}" id="nomProduit" class="form-control" required="required"/>
                         </div>
                         <span th:errors="*{nomProduit}" class="text-danger"></span>
                     </div>
@@ -43,6 +43,6 @@
             </div>
         </div>
     </div>
-    
+    <div th:include="/includes/footer :: footer"></div>
 </body>
 </html>

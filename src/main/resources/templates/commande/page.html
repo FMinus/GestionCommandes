@@ -32,7 +32,6 @@
                     <th>Num</th>
                     <th>Date</th>
                     <th>Client</th>
-                    <th>Supprimer</th>
                     <th>Consulter</th>
                 </tr>
                 </thead>
@@ -44,64 +43,68 @@
                         <a th:href="@{'/client/detail/'+${e.client.numeroClient}}" th:text="${e.client.nom +' '+ e.client.prenom}"></a>
                     </td>
                     <td>
-                        <a th:href="@{/commande/delete(id=${e.numeroCommande})}">Delete</a>
-                    </td>
-                    <td>
                         <a th:href="@{'/commande/detail/'+${e.numeroCommande}}">Consulter</a>
                     </td>
-                    
-                    <td>
-                        <a th:href="'#'+${e.numeroCommande}" data-toggle="modal"> Modifier</a>
-                        <div class="modal fade" th:id="${e.numeroCommande}" aria-labelledby="tiketLabel" tabindex="-1"
-                             role="dialog" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
+                    <div th:if="${#authorization.expression('isAuthenticated()') and #strings.contains(#authentication.principal.authorities,'ADMIN')}">
+                        <td>
+                            <a th:href="@{/commande/delete(id=${e.numeroCommande})}">Delete</a>
+                        </td>
 
-                                        <h4 class="modal-title" id="tiketLabel">
-                                            Modifier Commande:
-                                        </h4>
-                                    </div>
 
-                                    <div class="modal-body">
-                                        <form th:action="@{/commande/edit}" class="form-horizontal" th:object="${commande}" method="post">
-                                            <input type="hidden" name="numeroCommande" th:value="${e.numeroCommande}" id="numeroEdit"/>
-                                            <div class="form-group">
-                                                <label for="dateCommande" class="control-label col-sm-2">Nom </label>
-                                                <div class="col-sm-10">
-                                                    <input type="date" name="dateCommande" th:value="${e.dateCommande}" class="form-control" id="dateCommande"/>
+                        <td>
+                            <a th:href="'#'+${e.numeroCommande}" data-toggle="modal"> Modifier</a>
+                            <div class="modal fade" th:id="${e.numeroCommande}" aria-labelledby="tiketLabel" tabindex="-1"
+                                 role="dialog" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+
+                                            <h4 class="modal-title" id="tiketLabel">
+                                                Modifier Commande:
+                                            </h4>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <form th:action="@{/commande/edit}" class="form-horizontal" th:object="${commande}" method="post">
+                                                <input type="hidden" name="numeroCommande" th:value="${e.numeroCommande}" id="numeroEdit"/>
+                                                <div class="form-group">
+                                                    <label for="dateCommande" class="control-label col-sm-2">Nom </label>
+                                                    <div class="col-sm-10">
+                                                        <input type="date" name="dateCommande" th:value="${e.dateCommande}" class="form-control" id="dateCommande"/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="clientID" class="control-label col-sm-2">Client : </label>
-                                                <div class="col-sm-10">
-                                                    <select name="client" id="clientID" class="form-control" >
-                                                        <option
-                                                                th:each="client : ${clients}"
-                                                                th:text="${client.numeroClient +' : '+client.nom+' '+client.prenom}"
-                                                                th:value="${e.client.numeroClient}">
-                                                        </option>
-                                                    </select>
+                                                <div class="form-group">
+                                                    <label for="clientID" class="control-label col-sm-2">Client
+                                                        : </label>
+                                                    <div class="col-sm-10">
+                                                        <select name="client" id="clientID" class="form-control">
+                                                            <option
+                                                                    th:each="client : ${clients}"
+                                                                    th:text="${client.numeroClient +' : '+client.nom+' '+client.prenom}"
+                                                                    th:value="${e.client.numeroClient}">
+                                                            </option>
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <input type="submit" value="Modifier" class="btn btn-success"/>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <input type="submit" value="Modifier" class="btn btn-success"/>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </td>
+                        </td>
+                    </div>
                 </tr>
                 </tbody>
             </table>
@@ -110,6 +113,6 @@
         <div th:include="/includes/pager :: pager"></div>
     </div>
 
-
+    <div th:include="/includes/footer :: footer"></div>
 </body>
 </html>
